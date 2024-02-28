@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 // Import các lớp dịch vụ cho các bảng dữ liệu
 const StaffSRouter = require("./app/routes/staff.route");
+const MedicineSRouter = require("./app/routes/medicine.router");
 
 const ApiError = require("./app/api-error");
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/staffs", StaffSRouter);
+app.use("/api/medicines", MedicineSRouter);
 
 
 // Xử lý lỗi 404 - Không Tìm thấy tài nguyên
