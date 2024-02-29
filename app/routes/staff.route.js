@@ -8,6 +8,9 @@ router
   .post(staff.create)
   .delete(staff.deleteAll);
 
+  router.post("/login", staff.login);
+  router.post('/logout', staff.logout);
+
 router
   .route("/:id")
   .get(staff.findStaffById)
