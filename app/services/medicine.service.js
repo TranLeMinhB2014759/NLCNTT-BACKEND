@@ -11,7 +11,9 @@ class MedicineService {
       Gia: payload.Gia,
       MoTa: payload.MoTa,
       SoLuong: payload.SoLuong,
+      Donvi: payload.Donvi,
       GhiChu: payload.GhiChu,
+      nhaCungCap: payload.nhaCungCap,
       imgURL: payload.imgURL,
     };
 
