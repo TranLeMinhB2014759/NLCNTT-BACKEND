@@ -9,9 +9,10 @@ class MedicineService {
     const medicine = {
       tenThuoc: payload.tenThuoc,
       Gia: payload.Gia,
-      MoTa: payload.MoTa,
-      SoLuong: payload.SoLuong,
       Donvi: payload.Donvi,
+      SoLuong: payload.SoLuong,
+      MoTa: payload.MoTa,
+      HDSD: payload.HDSD,
       GhiChu: payload.GhiChu,
       nhaCungCap: payload.nhaCungCap,
       imgURL: payload.imgURL,
