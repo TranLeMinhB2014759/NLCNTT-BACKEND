@@ -4,11 +4,17 @@ const StaffService = require("../services/staff.service");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
-  if (!req.body?.name) {
-    return next(new ApiError(400, "Name  are required fields"));
+  if (!req.body?.name || !req.body?.email || !req.body?.password ) {
+    return next(new ApiError(400, "Name, email, and password are required fields"));
   }
   try {
     const staffService = new StaffService(MongoDB.client);
+
+    const emailExists = await staffService.emailExists(req.body.email);
+    if (emailExists) {
+      return next(new ApiError(400, "Email already exists"));
+    }
+
     const document = await staffService.create(req.body);
     return res.send(document);
   } catch (error) {

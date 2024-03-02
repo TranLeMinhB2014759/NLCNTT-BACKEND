@@ -25,6 +25,12 @@ class StaffService {
 
     return staff;
   }
+
+  async emailExists(email) {
+    const existingStaff = await this.Staffs.findOne({ email });
+    return !!existingStaff;
+  }
+
   async create(payload) {
     const staff = this.extractStaffData(payload);
     const result = await this.Staffs.findOneAndUpdate(
