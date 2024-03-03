@@ -1,0 +1,79 @@
+const { ObjectId } = require("mongodb");
+
+class PatientService {
+  constructor(client) {
+    this.Patients = client.db().collection("BenhNhan");
+  }
+
+  extractPatientData(payload) {
+    const patient = {
+      name: payload.name,    
+      year: payload.year,
+      gender: payload.gender,
+      phoneNumber: payload.phoneNumber,
+      address: payload.address,
+    };
+
+    Object.keys(patient).forEach(
+      (key) => patient[key] === undefined && delete patient[key]
+    );
+
+    return patient;
+  }
+
+  async sdtExists(phoneNumber) {
+    const existingPatient = await this.Patients.findOne({ phoneNumber });
+    return !!existingPatient;
+  }
+
+  async create(payload) {
+    const patient = this.extractPatientData(payload);
+    const result = await this.Patients.insertOne(patient, {
+      returnDocument: "after",
+      upsert: true,
+    });
+    return result.value;
+  }
+
+  async findByName(name) {
+    return await this.find({
+      name: { $regex: new RegExp(name), $options: "i" },
+    });
+  }
+
+  async find(filter) {
+    const cursor = await this.Patients.find(filter);
+    return await cursor.toArray();
+  }
+
+  async findPatientById(id) {
+    const patient = await this.Patients.findOne({ _id: new ObjectId(id) });
+    return patient;
+  }
+
+  async update(id, payload) {
+    const filter = {
+      _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
+  };
+    const update = this.extractPatientData(payload);
+    const result = await this.Patients.findOneAndUpdate(
+      filter, 
+      { $set: update },
+      { returnDocument: "after" }
+    );
+    return result;
+  }
+
+  async delete(id) {
+    const result = await this.Patients.findOneAndDelete({
+      _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
+    });
+    return result;
+  }
+  async deleteAll() {
+    const result = await this.Patients.deleteMany({});
+    return result.deletedCount;
+  }
+}
+
+module.exports = PatientService;

@@ -4,6 +4,7 @@ const cors = require("cors");
 // Import các lớp dịch vụ cho các bảng dữ liệu
 const StaffSRouter = require("./app/routes/staff.route");
 const MedicineSRouter = require("./app/routes/medicine.router");
+const PatientSRouter = require("./app/routes/patient.router");
 
 const ApiError = require("./app/api-error");
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/staffs", StaffSRouter);
 app.use("/api/medicines", MedicineSRouter);
+app.use("/api/patients", PatientSRouter);
 
 
 // Xử lý lỗi 404 - Không Tìm thấy tài nguyên
@@ -32,7 +34,7 @@ app.use((error, req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.json({message: "Wellcome to blood donor resgistration application"});
+    res.json({message: "Wellcome to clinic application"});
 
 });
 
