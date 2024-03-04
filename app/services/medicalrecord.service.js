@@ -17,6 +17,7 @@ class MedicalrecordService {
         prescription: payload.prescription, //Toa thuốc
         GhiChu: payload.GhiChu,
         ngayKham: payload.ngayKham,
+        bacsi: payload.bacsi,
     };
 
     Object.keys(medicine).forEach(
