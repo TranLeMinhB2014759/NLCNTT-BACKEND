@@ -12,7 +12,7 @@ class MedicineService {
       Donvi: payload.Donvi,
       SoLuong: payload.SoLuong,
       MoTa: payload.MoTa,
-      HDSD: payload.HDSD,
+      // HDSD: payload.HDSD,
       GhiChu: payload.GhiChu,
       nhaCungCap: payload.nhaCungCap,
       imgURL: payload.imgURL,
