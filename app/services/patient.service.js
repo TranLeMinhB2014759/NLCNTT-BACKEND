@@ -7,6 +7,7 @@ class PatientService {
 
   extractPatientData(payload) {
     const patient = {
+      MSBN: payload.MSBN,
       name: payload.name,    
       year: payload.year,
       gender: payload.gender,
