@@ -4,6 +4,7 @@ const cors = require("cors");
 // Import các lớp dịch vụ cho các bảng dữ liệu
 const StaffSRouter = require("./app/routes/staff.route");
 const MedicineSRouter = require("./app/routes/medicine.router");
+const DiseaseSRouter = require("./app/routes/diseases.router");
 const PatientSRouter = require("./app/routes/patient.router");
 const MedicalrecordSRouter = require("./app/routes/medicalrecord.router");
 const BillSRouter = require("./app/routes/bill.router");
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/staffs", StaffSRouter);
 app.use("/api/medicines", MedicineSRouter);
+app.use("/api/diseases", DiseaseSRouter);
 app.use("/api/patients", PatientSRouter);
 app.use("/api/medicalrecords", MedicalrecordSRouter);
 app.use("/api/bills", BillSRouter);
