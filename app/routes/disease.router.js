@@ -1,5 +1,5 @@
 const express = require("express");
-const diseases = require("../controllers/diseases.controller.js");
+const diseases = require("../controllers/disease.controller.js");
 const router = express.Router();
 
 router
@@ -10,7 +10,7 @@ router
 
 router
   .route("/:id")
-  .get(diseases.findDiseasesById)
+  .get(diseases.findDiseaseById)
   .put(diseases.update)
   .delete(diseases.delete);
 

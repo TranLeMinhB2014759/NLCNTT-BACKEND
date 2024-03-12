@@ -1,31 +1,31 @@
 const { ObjectId } = require("mongodb");
 
-class DiseasesService {
+class DiseaseService {
   constructor(client) {
-    this.Diseasess = client.db().collection("DSBenh");
+    this.Diseases = client.db().collection("DSBenh");
   }
 
-  extractDiseasesData(payload) {
-    const Diseases = {
+  extractDiseaseData(payload) {
+    const disease = {
       code: payload.code,
       tenBenh: payload.tenBenh,
     };
 
-    Object.keys(Diseases).forEach(
-      (key) => Diseases[key] === undefined && delete Diseases[key]
+    Object.keys(disease).forEach(
+      (key) => disease[key] === undefined && delete disease[key]
     );
 
-    return Diseases;
+    return disease;
   }
 
   async codeExists(code) {
-    const existingDiseases = await this.Diseasess.findOne({ code });
-    return !!existingDiseases;
+    const existingDisease = await this.Diseases.findOne({ code });
+    return !!existingDisease;
   }
 
   async create(payload) {
-    const Diseases = this.extractDiseasesData(payload);
-    const result = await this.Diseasess.insertOne(Diseases, {
+    const disease = this.extractDiseaseData(payload);
+    const result = await this.Diseases.insertOne(disease, {
       returnDocument: "after",
       upsert: true,
     });
@@ -39,12 +39,12 @@ class DiseasesService {
   }
 
   async find(filter) {
-    const cursor = await this.Diseasess.find(filter);
+    const cursor = await this.Diseases.find(filter);
     return await cursor.toArray();
   }
 
-  async findDiseasesById(id) {
-    const Diseases = await this.Diseasess.findOne({ _id: new ObjectId(id) });
+  async findDiseaseById(id) {
+    const Diseases = await this.Diseases.findOne({ _id: new ObjectId(id) });
     return Diseases;
   }
 
@@ -52,8 +52,8 @@ class DiseasesService {
     const filter = {
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
   };
-    const update = this.extractDiseasesData(payload);
-    const result = await this.Diseasess.findOneAndUpdate(
+    const update = this.extractDiseaseData(payload);
+    const result = await this.Diseases.findOneAndUpdate(
       filter, 
       { $set: update },
       { returnDocument: "after" }
@@ -62,15 +62,15 @@ class DiseasesService {
   }
 
   async delete(id) {
-    const result = await this.Diseasess.findOneAndDelete({
+    const result = await this.Diseases.findOneAndDelete({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     });
     return result;
   }
   async deleteAll() {
-    const result = await this.Diseasess.deleteMany({});
+    const result = await this.Diseases.deleteMany({});
     return result.deletedCount;
   }
 }
 
-module.exports = DiseasesService;
+module.exports = DiseaseService;
