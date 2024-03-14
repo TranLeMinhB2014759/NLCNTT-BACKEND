@@ -45,6 +45,10 @@ exports.update = async (req, res, next) => {
   }
   try {
     const staffService = new StaffService(MongoDB.client);
+    const emailExists = await staffService.emailExists(req.body.email);
+    if (emailExists) {
+      return next(new ApiError(400, "Email already exists"));
+    }
     const document = await staffService.update(req.params.id, req.body);
     if (!document) {
       return next(new ApiError(404, "Staff not found"));
