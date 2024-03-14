@@ -45,6 +45,10 @@ exports.update = async (req, res, next) => {
   }
   try {
     const patientService = new PatientService(MongoDB.client);
+    const sdtExists = await patientService.sdtExists(req.body.phoneNumber);
+    if (sdtExists) {
+      return next(new ApiError(400, "phoneNumber already exists"));
+    }
     const document = await patientService.update(req.params.id, req.body);
     if (!document) {
       return next(new ApiError(404, "Patient not found"));
