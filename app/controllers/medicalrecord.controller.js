@@ -87,9 +87,9 @@ exports.findByPhoneNumber = async (req, res, next) => {
   try {
       const medicalrecordService = new MedicalrecordService(MongoDB.client);
       const medicalrecords = await medicalrecordService.findByPhoneNumber(req.params.phoneNumber);
-      if (medicalrecords.length === 0) {
-          return res.status(404).json({ message: "No medical records found for the provided phone number" });
-      }
+      // if (medicalrecords.length === 0) {
+      //     return res.status(404).json({ message: "No medical records found for the provided phone number" });
+      // }
       res.json(medicalrecords);
   } catch (error) {
       console.log(error);
