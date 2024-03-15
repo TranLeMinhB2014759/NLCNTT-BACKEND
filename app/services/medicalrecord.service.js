@@ -8,6 +8,7 @@ class MedicalrecordService {
   extractMedicalrecordData(payload) {
     const medicine = {
         MSBN: payload.MSBN,
+        MSDT: payload.MSDT,
         name: payload.name,    
         year: payload.year,
         gender: payload.gender,

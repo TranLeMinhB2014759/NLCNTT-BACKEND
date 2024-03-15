@@ -73,13 +73,7 @@ exports.findAll = async (req, res, next) => {
   let documents = [];
   try {
     const medicalrecordService = new MedicalrecordService(MongoDB.client);
-    const { TenHH } = req.query;
-
-    if (TenHH) {
-      documents = await medicalrecordService.findByTenHH(TenHH);
-    } else {
-      documents = await medicalrecordService.find({});
-    }
+    documents = await medicalrecordService.find({});
   } catch (error) {
     console.log(error);
     return next(
