@@ -97,4 +97,18 @@ exports.findByPhoneNumber = async (req, res, next) => {
   }
 };
 
+exports.findByMSDT = async (req, res, next) => {
+  try {
+      const medicalrecordService = new MedicalrecordService(MongoDB.client);
+      const medicalrecords = await medicalrecordService.findByMSDT(req.params.MSDT);
+      // if (medicalrecords.length === 0) {
+      //     return res.status(404).json({ message: "No medical records found for the provided MSDT" });
+      // }
+      res.json(medicalrecords);
+  } catch (error) {
+      console.log(error);
+      next(new ApiError(500, "Error finding medical records by MSDT"));
+  }
+};
+
 

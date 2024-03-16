@@ -17,4 +17,7 @@ router
   .route("/phone/:phoneNumber")
   .get(medicalrecords.findByPhoneNumber);
 
+router
+  .route("/msdt/:MSDT")
+  .get(medicalrecords.findByMSDT);
 module.exports = router;

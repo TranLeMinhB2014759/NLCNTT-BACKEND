@@ -40,7 +40,11 @@ class MedicalrecordService {
 
   async findByPhoneNumber(phoneNumber) {
     return await this.Medicalrecords.find({ phoneNumber }).toArray();
-}
+  }
+
+  async findByMSDT(MSDT) {
+    return await this.Medicalrecords.find({ MSDT }).toArray();
+  }
 
   async find(filter) {
     const cursor = await this.Medicalrecords.find(filter);
