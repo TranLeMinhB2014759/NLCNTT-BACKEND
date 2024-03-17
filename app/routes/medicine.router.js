@@ -5,7 +5,11 @@ const router = express.Router();
 router
   .route("/")
   .get(medicines.findAll)
-  .post(medicines.create);
+  .post(medicines.create)
+
+router
+  .route("/active")
+  .get(medicines.findActive);
 
 router
   .route("/:id")

@@ -71,24 +71,29 @@ exports.delete = async (req, res, next) => {
 
 exports.findAll = async (req, res, next) => {
   let documents = [];
-
   try {
     const medicineService = new MedicineService(MongoDB.client);
-    const { TenHH } = req.query;
-
-    if (TenHH) {
-      documents = await medicineService.findByTenHH(TenHH);
-    } else {
-      documents = await medicineService.find({});
-    }
+    documents = await medicineService.find({});
   } catch (error) {
     console.log(error);
     return next(
       new ApiError(500, "An error occurred while retrieving medicines")
     );
   }
-
   return res.send(documents);
 };
 
+exports.findActive = async (req, res, next) => {
+  let documents = [];
+  try {
+    const medicineService = new MedicineService(MongoDB.client);
+    documents = await medicineService.findIsActive({});
+    return res.send(documents);
+  } catch (error) {
+    console.log(error);
+    return next(
+      new ApiError(500, "An error occurred while retrieving medicines")
+    );
+  }
+};
 

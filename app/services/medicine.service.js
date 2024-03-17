@@ -11,11 +11,12 @@ class MedicineService {
       Gia: payload.Gia,
       Donvi: payload.Donvi,
       SoLuong: payload.SoLuong,
+      HSD: payload.HSD,
       MoTa: payload.MoTa,
-      // HDSD: payload.HDSD,
       GhiChu: payload.GhiChu,
       nhaCungCap: payload.nhaCungCap,
       imgURL: payload.imgURL,
+      status: payload.status
     };
 
     // Remove undefined fields
@@ -63,8 +64,7 @@ class MedicineService {
         { returnDocument: "after" }
     );
     return result;
-}
-
+  }
 
   async delete(id) {
     const result = await this.Medicines.findOneAndDelete({
@@ -73,7 +73,11 @@ class MedicineService {
     return result;
   }
 
-  
+  async findIsActive(filter) {
+    const query = { ...filter, status: "on" };
+    const cursor = await this.Medicines.find(query);
+    return await cursor.toArray();
+  }
 }
 
 module.exports = MedicineService;
