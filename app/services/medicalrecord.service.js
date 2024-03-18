@@ -20,6 +20,7 @@ class MedicalrecordService {
         GhiChu: payload.GhiChu,
         ngayKham: payload.ngayKham,
         bacsi: payload.bacsi,
+        status: payload.status,
     };
 
     Object.keys(medicine).forEach(

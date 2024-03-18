@@ -7,6 +7,7 @@ class BillService {
 
   extractBillData(payload) {
     const bill = {
+        MSDT: payload.MSDT,
         ngayLap: payload.ngayLap,
         name: payload.name,
         phoneNumber: payload.phoneNumber,
