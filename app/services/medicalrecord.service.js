@@ -16,6 +16,7 @@ class MedicalrecordService {
         address: payload.address,
         symptom: payload.symptom, // Triệu chứng
         diagnosis: payload.diagnosis, // Chuẩn đoán
+        service: payload.service,
         prescription: payload.prescription, //Toa thuốc
         GhiChu: payload.GhiChu,
         ngayKham: payload.ngayKham,

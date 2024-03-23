@@ -5,6 +5,7 @@ const cors = require("cors");
 const StaffSRouter = require("./app/routes/staff.route");
 const MedicineSRouter = require("./app/routes/medicine.router");
 const DiseaseSRouter = require("./app/routes/disease.router");
+const ServiceSRouter = require("./app/routes/service.router");
 const RoomSRouter = require("./app/routes/room.router")
 const PatientSRouter = require("./app/routes/patient.router");
 const MedicalrecordSRouter = require("./app/routes/medicalrecord.router");
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/staffs", StaffSRouter);
 app.use("/api/medicines", MedicineSRouter);
 app.use("/api/diseases", DiseaseSRouter);
+app.use("/api/services", ServiceSRouter);
 app.use("/api/rooms", RoomSRouter);
 app.use("/api/patients", PatientSRouter);
 app.use("/api/medicalrecords", MedicalrecordSRouter);

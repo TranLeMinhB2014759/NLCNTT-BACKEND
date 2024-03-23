@@ -11,7 +11,10 @@ class BillService {
         ngayLap: payload.ngayLap,
         name: payload.name,
         phoneNumber: payload.phoneNumber,
+        service: payload.service,
+        total_service: payload.total_service,
         prescription: payload.prescription,
+        total_prescription: payload.total_prescription,
         total_bill: payload.total_bill,
         nguoiLap: payload.nguoiLap,
     };
