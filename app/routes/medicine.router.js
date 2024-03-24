@@ -8,13 +8,13 @@ router
   .post(medicines.create)
 
 router
-  .route("/active")
-  .get(medicines.findActive);
-
-router
   .route("/:id")
   .get(medicines.findOne)
   .put(medicines.update)
   .delete(medicines.delete);
+
+// router
+//   .route("/active")
+//   .get(medicines.findActive);
 
 module.exports = router;

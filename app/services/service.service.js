@@ -10,6 +10,7 @@ class ServiceService {
       code: payload.code,
       tenDichVu: payload.tenDichVu,
       Gia: payload.Gia,
+      status: payload.status,
     };
 
     Object.keys(service).forEach(

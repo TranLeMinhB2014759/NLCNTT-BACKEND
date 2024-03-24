@@ -8,7 +8,7 @@ class MedicalrecordService {
   extractMedicalrecordData(payload) {
     const medicine = {
         MSBN: payload.MSBN,
-        MSDT: payload.MSDT,
+        MSHS: payload.MSHS,
         name: payload.name,    
         year: payload.year,
         gender: payload.gender,
@@ -44,8 +44,8 @@ class MedicalrecordService {
     return await this.Medicalrecords.find({ phoneNumber }).toArray();
   }
 
-  async findByMSDT(MSDT) {
-    return await this.Medicalrecords.find({ MSDT }).toArray();
+  async findByMSHS(MSHS) {
+    return await this.Medicalrecords.find({ MSHS }).toArray();
   }
 
   async find(filter) {

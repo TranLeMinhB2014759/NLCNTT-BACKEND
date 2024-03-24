@@ -18,6 +18,6 @@ router
   .get(medicalrecords.findByPhoneNumber);
 
 router
-  .route("/msdt/:MSDT")
-  .get(medicalrecords.findByMSDT);
+  .route("/mshs/:MSHS")
+  .get(medicalrecords.findByMSHS);
 module.exports = router;

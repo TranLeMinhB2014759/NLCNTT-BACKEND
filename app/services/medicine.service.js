@@ -73,11 +73,11 @@ class MedicineService {
     return result;
   }
 
-  async findIsActive(filter) {
-    const query = { ...filter, status: "on" };
-    const cursor = await this.Medicines.find(query);
-    return await cursor.toArray();
-  }
+  // async findIsActive(filter) {
+  //   const query = { ...filter, status: "on" };
+  //   const cursor = await this.Medicines.find(query);
+  //   return await cursor.toArray();
+  // }
 }
 
 module.exports = MedicineService;
