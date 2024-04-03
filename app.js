@@ -11,6 +11,7 @@ const RoomSRouter = require("./app/routes/room.router")
 const PatientSRouter = require("./app/routes/patient.router");
 const MedicalrecordSRouter = require("./app/routes/medicalrecord.router");
 const BillSRouter = require("./app/routes/bill.router");
+const AppointmentSRouter = require("./app/routes/appointment.router");
 
 const ApiError = require("./app/api-error");
 
@@ -28,6 +29,7 @@ app.use("/api/rooms", RoomSRouter);
 app.use("/api/patients", PatientSRouter);
 app.use("/api/medicalrecords", MedicalrecordSRouter);
 app.use("/api/bills", BillSRouter);
+app.use("/api/appointments", AppointmentSRouter);
 
 
 // Xử lý lỗi 404 - Không Tìm thấy tài nguyên
