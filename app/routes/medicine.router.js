@@ -13,8 +13,8 @@ router
   .put(medicines.update)
   .delete(medicines.delete);
 
-// router
-//   .route("/active")
-//   .get(medicines.findActive);
+router
+  .route("/active")
+  .get(medicines.findActive);
 
 module.exports = router;

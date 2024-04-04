@@ -6,34 +6,34 @@ class MedicalrecordService {
   }
 
   extractMedicalrecordData(payload) {
-    const medicine = {
-        MSBN: payload.MSBN,
-        MSHS: payload.MSHS,
-        name: payload.name,    
-        year: payload.year,
-        gender: payload.gender,
-        phoneNumber: payload.phoneNumber,
-        address: payload.address,
-        symptom: payload.symptom, // Triệu chứng
-        diagnosis: payload.diagnosis, // Chuẩn đoán
-        service: payload.service,
-        prescription: payload.prescription, //Toa thuốc
-        GhiChu: payload.GhiChu,
-        ngayKham: payload.ngayKham,
-        bacsi: payload.bacsi,
-        status: payload.status,
+    const medicalrecord = {
+      MSBN: payload.MSBN,
+      MSHS: payload.MSHS,
+      name: payload.name,
+      year: payload.year,
+      gender: payload.gender,
+      phoneNumber: payload.phoneNumber,
+      address: payload.address,
+      symptom: payload.symptom,
+      diagnosis: payload.diagnosis,
+      service: payload.service,
+      prescription: payload.prescription,
+      GhiChu: payload.GhiChu,
+      ngayKham: payload.ngayKham,
+      bacsi: payload.bacsi,
+      status: payload.status,
     };
 
-    Object.keys(medicine).forEach(
-      (key) => medicine[key] === undefined && delete medicine[key]
+    Object.keys(medicalrecord).forEach(
+      (key) => medicalrecord[key] === undefined && delete medicalrecord[key]
     );
 
-    return medicine;
+    return medicalrecord;
   }
 
   async create(payload) {
-    const medicine = this.extractMedicalrecordData(payload);
-    const result = await this.Medicalrecords.insertOne(medicine, {
+    const medicalrecord = this.extractMedicalrecordData(payload);
+    const result = await this.Medicalrecords.insertOne(medicalrecord, {
       returnDocument: "after",
       upsert: true,
     });
@@ -56,22 +56,21 @@ class MedicalrecordService {
   async findById(id) {
     return await this.Medicalrecords.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
-  });
+    });
   }
 
   async update(id, payload) {
     const filter = {
-        _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
+      _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
     };
     const update = this.extractMedicalrecordData(payload);
     const result = await this.Medicalrecords.findOneAndUpdate(
-        filter,
-        { $set: update },
-        { returnDocument: "after" }
+      filter,
+      { $set: update },
+      { returnDocument: "after" }
     );
     return result;
-}
-
+  }
 
   async delete(id) {
     const result = await this.Medicalrecords.findOneAndDelete({
@@ -79,8 +78,6 @@ class MedicalrecordService {
     });
     return result;
   }
-
-  
 }
 
 module.exports = MedicalrecordService;

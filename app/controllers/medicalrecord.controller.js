@@ -19,6 +19,7 @@ exports.create = async (req, res, next) => {
     );
   }
 };
+
 exports.findOne = async (req, res, next) => {
   try {
     const medicalrecordService = new MedicalrecordService(MongoDB.client);
@@ -30,7 +31,7 @@ exports.findOne = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return next(
-      new ApiError(500, `Error retrieving contact with id=${req.params.id} `)
+      new ApiError(500, `Error retrieving medicalrecord with id=${req.params.id}`)
     );
   }
 };

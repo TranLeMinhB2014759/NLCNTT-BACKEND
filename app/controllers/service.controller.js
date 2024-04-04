@@ -7,6 +7,7 @@ exports.create = async (req, res, next) => {
   if (!req.body?.tenDichVu || !req.body?.code ) {
     return next(new ApiError(400, "Code are required fields"));
   }
+
   try {
     const serviceService = new ServiceService(MongoDB.client);
 
@@ -40,15 +41,19 @@ exports.findServiceById = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
-  if (Object.keys(req.body).length === 0) {
-    return next(new ApiError(400, "Data to update can't be empty"));
-  }
   try {
     const serviceService = new ServiceService(MongoDB.client);
-    
-    const codeExists = await serviceService.codeExists(req.body.code);
-    if (codeExists) {
-      return next(new ApiError(400, "Code already exists"));
+
+    if (Object.keys(req.body).length === 0) {
+      return next(new ApiError(400, "Data to update can't be empty"));
+    }
+
+    const { code } = req.body;
+    if (code) {
+      const codeExists = await serviceService.codeExists(code);
+      if (codeExists) {
+        return next(new ApiError(400, "Code already exists"));
+      }
     }
 
     const document = await serviceService.update(req.params.id, req.body);
@@ -82,12 +87,7 @@ exports.findAll = async (req, res, next) => {
   let documents = [];
   try {
     const serviceService = new ServiceService(MongoDB.client);
-    const { name } = req.query;
-    if (name) {
-      documents = await serviceService.findByName(name);
-    } else {
-      documents = await serviceService.find({});
-    }
+    documents = await serviceService.find({});
   } catch (error) {
     console.log(error);
     return next(
@@ -102,7 +102,7 @@ exports.deleteAll = async (req, res, next) => {
     const serviceService = new ServiceService(MongoDB.client);
     const deletedCount = await serviceService.deleteAll();
     return res.send({
-      message: `${deletedCount} services was deleted successfully`,
+      message: `${deletedCount} services were deleted successfully`,
     });
   } catch (error) {
     return next(
@@ -110,4 +110,3 @@ exports.deleteAll = async (req, res, next) => {
     );
   }
 };
-

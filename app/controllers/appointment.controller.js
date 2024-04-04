@@ -19,6 +19,7 @@ exports.create = async (req, res, next) => {
     );
   }
 };
+
 exports.findOne = async (req, res, next) => {
   try {
     const appointmentService = new AppointmentService(MongoDB.client);
@@ -55,13 +56,7 @@ exports.findAll = async (req, res, next) => {
 
   try {
     const appointmentService = new AppointmentService(MongoDB.client);
-    const { TenHH } = req.query;
-
-    if (TenHH) {
-      documents = await appointmentService.findByTenHH(TenHH);
-    } else {
-      documents = await appointmentService.find({});
-    }
+    documents = await appointmentService.find({});
   } catch (error) {
     console.log(error);
     return next(
@@ -78,7 +73,6 @@ exports.update = async (req, res, next) => {
   }
   try {
     const appointmentService = new AppointmentService(MongoDB.client);
-    
     const document = await appointmentService.update(req.params.id, req.body);
     if (!document) {
       return next(new ApiError(404, "Appointment not found"));
@@ -137,6 +131,20 @@ exports.cancel = async (req, res, next) => {
   } catch (error) {
     return next(
       new ApiError(500, `Lỗi khi hủy cuộc hẹn với id=${req.params.id}`)
+    );
+  }
+};
+
+exports.deleteAll = async (req, res, next) => {
+  try {
+    const appointmentService = new AppointmentService(MongoDB.client);
+    const deletedCount = await appointmentService.deleteAll();
+    return res.send({
+      message: `${deletedCount} appointments was deleted successfully`,
+    });
+  } catch (error) {
+    return next(
+      new ApiError(500, "An error occurred while removing all appointments")
     );
   }
 };

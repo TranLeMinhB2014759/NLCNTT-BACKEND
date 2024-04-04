@@ -35,11 +35,11 @@ class DoctorService {
     return result.value;
   }
 
-  async findByName(tenBenh) {
-    return await this.find({
-      tenBenh: { $regex: new RegExp(tenBenh), $options: "i" },
-    });
-  }
+  // async findByName(name) {
+  //   return await this.find({
+  //     name: { $regex: new RegExp(name), $options: "i" },
+  //   });
+  // }
 
   async find(filter) {
     const cursor = await this.Doctors.find(filter);
@@ -70,6 +70,7 @@ class DoctorService {
     });
     return result;
   }
+  
   async deleteAll() {
     const result = await this.Doctors.deleteMany({});
     return result.deletedCount;

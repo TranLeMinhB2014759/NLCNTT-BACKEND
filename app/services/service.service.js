@@ -46,17 +46,17 @@ class ServiceService {
   }
 
   async findServiceById(id) {
-    const Services = await this.Services.findOne({ _id: new ObjectId(id) });
-    return Services;
+    const service = await this.Services.findOne({ _id: new ObjectId(id) });
+    return service;
   }
 
   async update(id, payload) {
     const filter = {
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
-  };
+    };
     const update = this.extractServiceData(payload);
     const result = await this.Services.findOneAndUpdate(
-      filter, 
+      filter,
       { $set: update },
       { returnDocument: "after" }
     );
@@ -69,6 +69,7 @@ class ServiceService {
     });
     return result;
   }
+
   async deleteAll() {
     const result = await this.Services.deleteMany({});
     return result.deletedCount;

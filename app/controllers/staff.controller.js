@@ -4,13 +4,14 @@ const StaffService = require("../services/staff.service");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
-  if (!req.body?.name || !req.body?.email || !req.body?.password ) {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
     return next(new ApiError(400, "Name, email, and password are required fields"));
   }
   try {
     const staffService = new StaffService(MongoDB.client);
 
-    const emailExists = await staffService.emailExists(req.body.email);
+    const emailExists = await staffService.emailExists(email);
     if (emailExists) {
       return next(new ApiError(400, "Email already exists"));
     }
@@ -80,12 +81,7 @@ exports.findAll = async (req, res, next) => {
   let documents = [];
   try {
     const staffService = new StaffService(MongoDB.client);
-    const { name } = req.query;
-    if (name) {
-      documents = await staffService.findByName(name);
-    } else {
-      documents = await staffService.find({});
-    }
+    documents = await staffService.find({});
   } catch (error) {
     console.log(error);
     return next(
@@ -100,7 +96,7 @@ exports.deleteAll = async (req, res, next) => {
     const staffService = new StaffService(MongoDB.client);
     const deletedCount = await staffService.deleteAll();
     return res.send({
-      message: `${deletedCount} staffs was deleted successfully`,
+      message: `${deletedCount} staffs were deleted successfully`,
     });
   } catch (error) {
     return next(
@@ -113,7 +109,7 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: 'Email và mật khẩu là trường bắt buộc' });
+    return res.status(400).json({ message: 'Email and password are required fields' });
   }
 
   try {

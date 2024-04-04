@@ -5,7 +5,8 @@ const router = express.Router();
 router
   .route("/")
   .get(appointments.findAll)
-  .post(appointments.create);
+  .post(appointments.create)
+  .delete(appointments.deleteAll);
 
 router
   .route("/:id")
@@ -18,5 +19,6 @@ router
 
 router
   .route("/cancel/:id")
-  .put(appointments.cancel)
+  .put(appointments.cancel);
+
 module.exports = router;

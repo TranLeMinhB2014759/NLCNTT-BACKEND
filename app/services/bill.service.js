@@ -35,12 +35,6 @@ class BillService {
     return result.value;
   }
 
-  async findByTenThuoc(TenThuoc) {
-    return await this.find({
-      TenThuoc: { $regex: new RegExp(TenThuoc), $options: "i" },
-    });
-  }
-
   async find(filter) {
     const cursor = await this.Bills.find(filter);
     return await cursor.toArray();
@@ -49,7 +43,7 @@ class BillService {
   async findById(id) {
     return await this.Bills.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
-  });
+    });
   }
 
   async delete(id) {
@@ -59,7 +53,10 @@ class BillService {
     return result;
   }
 
-  
+  async deleteAll() {
+    const result = await this.Bills.deleteMany({});
+    return result.deletedCount;
+  }
 }
 
 module.exports = BillService;

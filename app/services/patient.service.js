@@ -71,6 +71,7 @@ class PatientService {
     });
     return result;
   }
+  
   async deleteAll() {
     const result = await this.Patients.deleteMany({});
     return result.deletedCount;

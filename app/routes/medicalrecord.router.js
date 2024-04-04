@@ -20,4 +20,5 @@ router
 router
   .route("/mshs/:MSHS")
   .get(medicalrecords.findByMSHS);
+
 module.exports = router;

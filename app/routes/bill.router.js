@@ -5,7 +5,8 @@ const router = express.Router();
 router
   .route("/")
   .get(bills.findAll)
-  .post(bills.create);
+  .post(bills.create)
+  .delete(bills.deleteAll);
 
 router
   .route("/:id")

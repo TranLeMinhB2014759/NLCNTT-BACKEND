@@ -66,6 +66,11 @@ class RoomService {
     });
     return result;
   }
+
+  async deleteAll() {
+    const result = await this.Rooms.deleteMany({});
+    return result.deletedCount;
+  }
 }
 
 module.exports = RoomService;

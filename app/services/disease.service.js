@@ -32,11 +32,11 @@ class DiseaseService {
     return result.value;
   }
 
-  async findByName(tenBenh) {
-    return await this.find({
-      tenBenh: { $regex: new RegExp(tenBenh), $options: "i" },
-    });
-  }
+  // async findByName(tenBenh) {
+  //   return await this.find({
+  //     tenBenh: { $regex: new RegExp(tenBenh), $options: "i" },
+  //   });
+  // }
 
   async find(filter) {
     const cursor = await this.Diseases.find(filter);
@@ -67,6 +67,7 @@ class DiseaseService {
     });
     return result;
   }
+  
   async deleteAll() {
     const result = await this.Diseases.deleteMany({});
     return result.deletedCount;

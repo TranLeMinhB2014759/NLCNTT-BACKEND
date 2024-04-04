@@ -18,7 +18,7 @@ class StaffService {
       token: payload.token || null, // Thêm trường token
     };
 
-    // Them nguoi dung vao bang staff
+    //Loại bỏ trường underfine
     Object.keys(staff).forEach(
       (key) => staff[key] === undefined && delete staff[key]
     );
@@ -63,7 +63,6 @@ class StaffService {
   }
 
   async findStaffById(id) {
-    // Tim nguoi dung  theo id
     const staff = await this.Staffs.findOne({ _id: new ObjectId(id) });
     return staff;
   }

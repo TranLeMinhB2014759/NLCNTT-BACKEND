@@ -21,6 +21,7 @@ exports.create = async (req, res, next) => {
     );
   }
 };
+
 exports.findOne = async (req, res, next) => {
   try {
     const roomService = new RoomService(MongoDB.client);
@@ -91,3 +92,16 @@ exports.findAll = async (req, res, next) => {
   return res.send(documents);
 };
 
+exports.deleteAll = async (req, res, next) => {
+  try {
+    const roomService = new RoomService(MongoDB.client);
+    const deletedCount = await roomService.deleteAll();
+    return res.send({
+      message: `${deletedCount} rooms were deleted successfully`,
+    });
+  } catch (error) {
+    return next(
+      new ApiError(500, "An error occurred while removing all rooms")
+    );
+  }
+};

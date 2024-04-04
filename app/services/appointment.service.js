@@ -36,11 +36,11 @@ class AppointmentService {
     return result.value;
   }
 
-  async findByName(name) {
-    return await this.find({
-      name: { $regex: new RegExp(name), $options: "i" },
-    });
-  }
+  // async findByName(name) {
+  //   return await this.find({
+  //     name: { $regex: new RegExp(name), $options: "i" },
+  //   });
+  // }
 
   async find(filter) {
     const cursor = await this.Appointments.find(filter);
@@ -99,7 +99,10 @@ class AppointmentService {
     return result.value;
   }
 
-
+  async deleteAll() {
+    const result = await this.Appointments.deleteMany({});
+    return result.deletedCount;
+  }
 }
 
 module.exports = AppointmentService;

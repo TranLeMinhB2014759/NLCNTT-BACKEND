@@ -36,12 +36,6 @@ class MedicineService {
     return result.value;
   }
 
-  async findByTenThuoc(TenThuoc) {
-    return await this.find({
-      TenThuoc: { $regex: new RegExp(TenThuoc), $options: "i" },
-    });
-  }
-
   async find(filter) {
     const cursor = await this.Medicines.find(filter);
     return await cursor.toArray();
@@ -50,7 +44,7 @@ class MedicineService {
   async findById(id) {
     return await this.Medicines.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
-  });
+    });
   }
 
   async update(id, payload) {
@@ -73,11 +67,11 @@ class MedicineService {
     return result;
   }
 
-  // async findIsActive(filter) {
-  //   const query = { ...filter, status: "on" };
-  //   const cursor = await this.Medicines.find(query);
-  //   return await cursor.toArray();
-  // }
+  async findIsActive(filter) {
+    const query = { ...filter, status: "on" };
+    const cursor = await this.Medicines.find(query);
+    return await cursor.toArray();
+  }
 }
 
 module.exports = MedicineService;
