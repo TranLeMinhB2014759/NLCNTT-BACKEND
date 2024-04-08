@@ -7,6 +7,7 @@ class AppointmentService {
 
   extractAppointmentData(payload) {
     const appointment = {
+      MSTN: payload.MSTN,
       name: payload.name,
       phoneNumber: payload.phoneNumber,
       service: payload.service,
