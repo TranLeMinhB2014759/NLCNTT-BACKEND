@@ -17,4 +17,8 @@ router
   .route("/active")
   .get(medicines.findActive);
 
+router
+  .route("/search/:tenThuoc")
+  .get(medicines.findByTenThuoc);
+
 module.exports = router;

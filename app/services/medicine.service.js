@@ -41,6 +41,12 @@ class MedicineService {
     return await cursor.toArray();
   }
 
+  async findByTenThuoc(tenThuoc) {
+    return await this.find({
+      tenThuoc: { $regex: new RegExp(tenThuoc), $options: "i" },
+    });
+  }
+
   async findById(id) {
     return await this.Medicines.findOne({
       _id: ObjectId.isValid(id) ? new ObjectId(id) : null,

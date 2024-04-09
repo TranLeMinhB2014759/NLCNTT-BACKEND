@@ -36,6 +36,20 @@ exports.findOne = async (req, res, next) => {
   }
 };
 
+exports.findByTenThuoc = async (req, res, next) => {
+  try {
+    const { tenThuoc } = req.params;
+    const medicineService = new MedicineService(MongoDB.client);
+    const documents = await medicineService.findByTenThuoc(tenThuoc);
+    return res.send(documents);
+  } catch (error) {
+    console.log(error);
+    return next(
+      new ApiError(500, "An error occurred while retrieving medicines by name")
+    );
+  }
+};
+
 exports.update = async (req, res, next) => {
   if (Object.keys(req.body).length === 0) {
     return next(new ApiError(400, "Data to update can't be empty"));
