@@ -1,6 +1,7 @@
 
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config();
 // Import các lớp dịch vụ cho các bảng dữ liệu
 const StaffSRouter = require("./app/routes/staff.route");
 const MedicineSRouter = require("./app/routes/medicine.router");
@@ -12,6 +13,7 @@ const PatientSRouter = require("./app/routes/patient.router");
 const MedicalrecordSRouter = require("./app/routes/medicalrecord.router");
 const BillSRouter = require("./app/routes/bill.router");
 const AppointmentSRouter = require("./app/routes/appointment.router");
+const UploaderSRouter = require("./app/routes/upload.router");
 
 const ApiError = require("./app/api-error");
 
@@ -30,6 +32,7 @@ app.use("/api/patients", PatientSRouter);
 app.use("/api/medicalrecords", MedicalrecordSRouter);
 app.use("/api/bills", BillSRouter);
 app.use("/api/appointments", AppointmentSRouter);
+app.use("/api/images", UploaderSRouter)
 
 
 // Xử lý lỗi 404 - Không Tìm thấy tài nguyên
