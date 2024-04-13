@@ -10,7 +10,7 @@ const storage = new CloudinaryStorage({
   params: (req, file) => {
     const { type } = req.params;
     return {
-      allowedFormats: ['jpg', 'png'],
+      allowedFormats: ['jpg', 'png', 'webp', 'jpeg'],
       folder: `image_upload_${type}`
     };
   },
