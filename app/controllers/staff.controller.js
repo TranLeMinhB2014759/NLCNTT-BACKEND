@@ -143,5 +143,23 @@ exports.logout = async (req, res, next) => {
   }
 };
 
+exports.changePassword = async (req, res, next) => {
+  const { email, current_password, new_password } = req.body;
 
+  if (!email || !current_password || !new_password) {
+    return res.status(400).json({ message: 'Email current password, and new password are required fields' });
+  }
 
+  try {
+    const staffService = new StaffService(MongoDB.client);
+    const  staff  = await staffService.changePassword(email, current_password, new_password);
+    
+    if (staff) {
+      res.status(200).json({ message: 'Đổi mật khẩu thành công' });
+    } else {
+      res.status(401).json({ message: 'Mật khẩu không trùng khớp' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi máy chủ' });
+  }
+};

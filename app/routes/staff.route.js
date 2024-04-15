@@ -10,6 +10,7 @@ router
 
 router.post("/login", staff.login);
 router.post('/logout', staff.logout);
+router.post("/changpwd", staff.changePassword);
 
 router
   .route("/:id")

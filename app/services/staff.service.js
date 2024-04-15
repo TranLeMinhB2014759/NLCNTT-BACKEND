@@ -106,6 +106,30 @@ class StaffService {
   async logout(email) {
     await this.Staffs.updateOne({ email }, { $set: { token: null } });
   }
+
+  async changePassword(email, current_password, new_password) {
+    try {
+        let staff = null;
+        staff = await this.Staffs.findOne({ email });
+
+        if (staff && staff.password === current_password) {
+            const result = await this.Staffs.updateOne(
+                { email },
+                { $set: { password: new_password } }
+            );
+            if (result.modifiedCount === 1) {
+                return staff;
+            } else {
+                throw new Error('Failed to update password');
+            }
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 }
 
 module.exports = StaffService;
