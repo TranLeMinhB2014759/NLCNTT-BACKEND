@@ -10,6 +10,8 @@ class AppointmentService {
       MSTN: payload.MSTN,
       name: payload.name,
       phoneNumber: payload.phoneNumber,
+      gender: payload.gender,
+      address: payload.address,
       service: payload.service,
       type: payload.type,
       doctor: payload.doctor,
