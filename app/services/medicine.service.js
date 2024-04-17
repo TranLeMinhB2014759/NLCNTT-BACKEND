@@ -42,8 +42,9 @@ class MedicineService {
   }
 
   async findByTenThuoc(tenThuoc) {
+    const tenThuocProcessed = tenThuoc.toLowerCase();
     return await this.find({
-      tenThuoc: { $regex: new RegExp(tenThuoc), $options: "i" },
+      tenThuoc: { $regex: new RegExp(tenThuocProcessed), $options: "i" },
     });
   }
 
