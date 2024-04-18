@@ -11,6 +11,7 @@ class AppointmentService {
       name: payload.name,
       phoneNumber: payload.phoneNumber,
       gender: payload.gender,
+      year: payload.year,
       address: payload.address,
       service: payload.service,
       type: payload.type,

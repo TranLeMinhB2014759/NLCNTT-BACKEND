@@ -104,3 +104,41 @@ exports.deleteAll = async (req, res, next) => {
   }
 };
 
+exports.listPhoneNumber = async (req, res, next) => {
+  try {
+      const patientService = new PatientService(MongoDB.client);
+      const listphone = await patientService.listPhoneNumber();
+      res.json(listphone);
+  } catch (error) {
+      console.log(error);
+      next(new ApiError(500, "Error while retrieving phone number list"));
+  }
+};
+
+exports.findPatientByPhoneNumber = async (req, res, next) => {
+  try {
+      const patientService = new PatientService(MongoDB.client);
+      const patients = await patientService.findPatientByPhoneNumber(req.params.phoneNumber);
+      // if (patients.length === 0) {
+      //     return res.status(404).json({ message: "No medical records found for the provided phone number" });
+      // }
+      res.json(patients);
+  } catch (error) {
+      console.log(error);
+      next(new ApiError(500, "Error finding patient by phone number"));
+  }
+};
+
+// exports.findPatientIDByPhoneNumber = async (req, res, next) => {
+//   try {
+//       const patientService = new PatientService(MongoDB.client);
+//       const patients = await patientService.findPatientIDByPhoneNumber(req.params.phoneNumber);
+//       if (patients.length === 0) {
+//           return res.status(404).json({ message: "No patientID found for the provided phone number" });
+//       }
+//       res.json(patients);
+//   } catch (error) {
+//       console.log(error);
+//       next(new ApiError(500, "Error finding patientID by phone number"));
+//   }
+// };

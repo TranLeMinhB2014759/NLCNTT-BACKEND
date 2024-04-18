@@ -42,6 +42,23 @@ class PatientService {
     });
   }
 
+  async listPhoneNumber() {
+    const patients = await this.find({});
+    const phoneNumbersAndIDs = patients.map(patient => {
+        return { _id: patient._id, phoneNumber: patient.phoneNumber };
+    });
+    return phoneNumbersAndIDs;
+}
+
+  async findPatientByPhoneNumber(phoneNumber) {
+    return await this.Patients.find({ phoneNumber }).toArray();
+  }
+
+  // async findPatientIDByPhoneNumber(phoneNumber) {
+  //   const patient = await this.Patients.findOne({ phoneNumber }, { projection: { _id: 1 } });
+  //   return patient ? patient._id : null;
+  // }
+
   async find(filter) {
     const cursor = await this.Patients.find(filter);
     return await cursor.toArray();

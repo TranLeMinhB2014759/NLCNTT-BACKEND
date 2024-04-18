@@ -14,4 +14,12 @@ router
   .put(patient.update)
   .delete(patient.delete);
 
+router
+  .route("/phone/listphone")
+  .get(patient.listPhoneNumber);
+
+router
+  .route("/patient/:phoneNumber")
+  .post(patient.findPatientByPhoneNumber)
+
 module.exports = router;
