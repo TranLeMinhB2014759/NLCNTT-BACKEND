@@ -21,4 +21,8 @@ router
   .route("/cancel/:id")
   .put(appointments.cancel);
 
+router
+  .route("/received/:id")
+  .put(appointments.received);
+
 module.exports = router;

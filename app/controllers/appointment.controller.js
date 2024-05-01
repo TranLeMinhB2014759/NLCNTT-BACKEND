@@ -135,6 +135,29 @@ exports.cancel = async (req, res, next) => {
   }
 };
 
+exports.received = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const appointmentService = new AppointmentService(MongoDB.client);
+    const appointment = await appointmentService.findById(id);
+
+    if (!appointment) {
+      return next(new ApiError(404, "Không tìm thấy cuộc hẹn"));
+    }
+
+    if (appointment.receive === "yes") {
+      return res.send({ message: "Đã tiếp nhận bệnh nhân" });
+    }
+
+    const updatedAppointment = await appointmentService.receive(id);
+    return res.send(updatedAppointment);
+  } catch (error) {
+    return next(
+      new ApiError(500, `Lỗi khi tiếp nhận cuộc hẹn với id=${req.params.id}`)
+    );
+  }
+};
+
 exports.deleteAll = async (req, res, next) => {
   try {
     const appointmentService = new AppointmentService(MongoDB.client);

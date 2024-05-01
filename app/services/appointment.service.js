@@ -21,6 +21,7 @@ class AppointmentService {
       time: payload.time,
       confirmer: payload.confirmer,
       confirm: payload.confirm,
+      receive: payload.receive,
       lastUpdated: payload.lastUpdated,
     };
 
@@ -102,6 +103,15 @@ class AppointmentService {
     );
     return result.value;
   }
+
+  async receive(id) {
+    const result = await this.Appointments.findOneAndUpdate(
+      { _id: ObjectId.isValid(id) ? new ObjectId(id) : null },
+      { $set: { receive: "yes" } },
+      { returnOriginal: false }
+    );
+    return result.value;
+  }  
 
   async deleteAll() {
     const result = await this.Appointments.deleteMany({});
