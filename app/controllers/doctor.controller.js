@@ -4,8 +4,9 @@ const DoctorService = require("../services/doctor.service");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
-  if (!req.body?.name ) {
-    return next(new ApiError(400, "Name are required fields"));
+  const { name, hocVi, chuyenMon, thamNien } = req.body;
+  if (!name || !hocVi || !chuyenMon || !thamNien) {
+    return next(new ApiError(400, "Please fill out all fields completely"));
   }
   try {
     const doctorService = new DoctorService(MongoDB.client);
@@ -40,9 +41,15 @@ exports.findDoctorById = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
+  const { name, hocVi, chuyenMon, thamNien } = req.body;
   if (Object.keys(req.body).length === 0) {
     return next(new ApiError(400, "Data to update can't be empty"));
   }
+
+  if (!name || !hocVi || !chuyenMon || !thamNien) {
+    return next(new ApiError(400, "Please fill out all fields completely"));
+  }
+
   try {
     const doctorService = new DoctorService(MongoDB.client);
     

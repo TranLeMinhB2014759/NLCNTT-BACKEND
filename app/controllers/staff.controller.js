@@ -2,12 +2,24 @@ const { ObjectId } = require("mongodb");
 const ApiError = require("../api-error");
 const StaffService = require("../services/staff.service");
 const MongoDB = require("../utils/mongodb.util");
+const Regex = require("../regex/regex");
 
 exports.create = async (req, res, next) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
-    return next(new ApiError(400, "Name, email, and password are required fields"));
+  const { name, email, password, phoneNumber, address, role } = req.body;
+  if (!name || !email || !password || !phoneNumber, !address, !role) {
+    return next(new ApiError(400, "Please fill out all fields completely"));
   }
+
+  const emailRegex = Regex.email;
+  if (!emailRegex.test(email)) {
+    return next(new ApiError(400, "Invalid email format"));
+  }
+
+  const phoneRegex = Regex.phoneNumber;
+  if (!phoneRegex.test(phoneNumber)) {
+    return next(new ApiError(400, "Invalid phone number format"));
+  }
+
   try {
     const staffService = new StaffService(MongoDB.client);
 
@@ -46,14 +58,31 @@ exports.update = async (req, res, next) => {
   }
   try {
     const staffService = new StaffService(MongoDB.client);
-    const emailExists = await staffService.emailExists(req.body.email);
+    const { name, email, password, phoneNumber, address, role } = req.body;
+    if (!name || !email || !password || !phoneNumber, !address, !role) {
+      return next(new ApiError(400, "Please fill out all fields completely"));
+    }
+  
+    const emailRegex = Regex.email;
+    if (!emailRegex.test(email)) {
+      return next(new ApiError(400, "Invalid email format"));
+    }
+  
+    const phoneRegex = Regex.phoneNumber;
+    if (!phoneRegex.test(phoneNumber)) {
+      return next(new ApiError(400, "Invalid phone number format"));
+    }
+
+    const emailExists = await staffService.emailExists(email);
     if (emailExists) {
       return next(new ApiError(400, "Email already exists"));
     }
+
     const document = await staffService.update(req.params.id, req.body);
     if (!document) {
       return next(new ApiError(404, "Staff not found"));
     }
+
     return res.send({ message: "Staff was updated successfully" });
   } catch (error) {
     return next(

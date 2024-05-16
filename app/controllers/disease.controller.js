@@ -2,15 +2,22 @@ const { ObjectId } = require("mongodb");
 const ApiError = require("../api-error");
 const DiseaseService = require("../services/disease.service");
 const MongoDB = require("../utils/mongodb.util");
+const Regex = require("../regex/regex");
 
 exports.create = async (req, res, next) => {
-  if (!req.body?.tenBenh || !req.body?.code) {
+  const { code, tenBenh } = req.body;
+  if (!code || !tenBenh) {
     return next(new ApiError(400, "Code and tenBenh are required fields"));
+  }
+
+  const codeRegex = Regex.code;
+  if (!codeRegex.test(code)) {
+    return next(new ApiError(400, "Invalid code format"));
   }
 
   try {
     const diseaseService = new DiseaseService(MongoDB.client);
-    const codeExists = await diseaseService.codeExists(req.body.code);
+    const codeExists = await diseaseService.codeExists(code);
     if (codeExists) {
       return next(new ApiError(400, "Code already exists"));
     }
@@ -42,13 +49,23 @@ exports.findDiseaseById = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
+  const { code, tenBenh } = req.body;
   if (Object.keys(req.body).length === 0) {
     return next(new ApiError(400, "Data to update can't be empty"));
   }
 
+  if (!code || !tenBenh) {
+    return next(new ApiError(400, "Code and tenBenh are required fields"));
+  }
+
+  const codeRegex = Regex.code;
+  if (!codeRegex.test(code)) {
+    return next(new ApiError(400, "Invalid code format"));
+  }
+
   try {
     const diseaseService = new DiseaseService(MongoDB.client);
-    const codeExists = await diseaseService.codeExists(req.body.code);
+    const codeExists = await diseaseService.codeExists(code);
     if (codeExists) {
       return next(new ApiError(400, "Code already exists"));
     }
